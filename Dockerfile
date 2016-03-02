@@ -27,4 +27,4 @@ RUN echo "eula=${EULA}" > /minecraft/eula.txt
 RUN rm -rf /minecraft-workspace
 EXPOSE 25565
 WORKDIR /data
-ENTRYPOINT java -jar /minecraft/craftbukkit-1.8.8.jar
+ENTRYPOINT ["/bin/bash","/root/start-minecraft.sh"] 
