@@ -27,4 +27,5 @@ RUN echo "eula=${EULA}" > /minecraft/eula.txt
 RUN rm -rf /minecraft-workspace
 EXPOSE 25565
 WORKDIR /data
+ADD start-minecraft.sh /root/start-minecraft.sh
 ENTRYPOINT ["/bin/bash","/root/start-minecraft.sh"] 
