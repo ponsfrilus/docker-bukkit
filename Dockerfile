@@ -21,7 +21,7 @@ ENV EULA false
 RUN apt-get update && apt-get install -y openjdk-7-jdk wget git
 RUN mkdir /minecraft-workspace /minecraft /data
 RUN wget -O /minecraft-workspace/BuildTools.jar https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
-RUN cd /minecraft-workspace/ && java -jar BuildTools.jar --rev 1.8.8
+RUN cd /minecraft-workspace/ && java -jar BuildTools.jar --rev 1.8.8 2>&1 >/dev/null
 RUN mv /minecraft-workspace/craftbukkit-*.jar /minecraft 
 RUN echo "eula=${EULA}" > /minecraft/eula.txt
 RUN rm -rf /minecraft-workspace
