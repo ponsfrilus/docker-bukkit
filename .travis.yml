@@ -13,7 +13,8 @@ branches:
     - 1.8.3
     - 1.8
 
-install: 
+install:
+    - docker pull bbriggs/bukkit:1.8.8
     - docker build -t bbriggs/bukkit:1.8.8 .
 
 script:
