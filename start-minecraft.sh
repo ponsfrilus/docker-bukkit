@@ -1,5 +1,10 @@
 #!/bin/bash
 #Solution borrowed from https://github.com/itzg/dockerfiles/blob/master/minecraft-server/start-minecraft.sh
+set -e -x
+if [ "$MC_VERSION" != "" ]; then
+  MC_VERSION=1.11
+fi
+
 if [ ! -f /data/eula.txt ]; then
   if [ "$EULA" != "" ]; then
     echo "# Generated via Docker on $(date)" > eula.txt
@@ -17,7 +22,9 @@ if [ ! -f /data/eula.txt ]; then
 fi
 cd /data
 if [[ "$TRAVIS" = true ]]; then
-    echo "stop" | java -jar /minecraft/craftbukkit-1.8.8.jar
+    echo "stop" | java -jar /minecraft/craftbukkit\-$MC_VERSION.jar
 else
-    java -jar /minecraft/craftbukkit-1.8.8.jar
+    echo $MC_VERSION
+    ls /minecraft/
+    java -jar /minecraft/craftbukkit-$MC_VERSION.jar
 fi

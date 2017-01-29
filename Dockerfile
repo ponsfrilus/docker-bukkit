@@ -17,15 +17,23 @@
 
 FROM ubuntu:trusty
 MAINTAINER Bren Briggs <briggs.brenton@gmail.com>
+
 RUN apt-get update && apt-get install -y openjdk-7-jdk wget git
 RUN mkdir /minecraft-workspace /minecraft /data
 RUN wget -O /minecraft-workspace/BuildTools.jar https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
 
-# Capture only stderr to reduce log verbosity. 
-RUN cd /minecraft-workspace/ && java -jar BuildTools.jar --rev latest 2>&1 >/dev/null
+##  Note to myself: find a way to use ENV or build-arg to pass the MC_VERSION
+##                  to the java BuildTools command (--rev MC_VERSION)
+#ARG MC_VERSION
+ENV MC_VERSION ${MC_VERSION:-1.11}
+#RUN echo $MC_VERSION
+
+# Capture only stderr to reduce log verbosity.
+RUN cd /minecraft-workspace/ && java -jar BuildTools.jar --rev 1.11 2>&1 >/dev/null
 RUN mv /minecraft-workspace/craftbukkit-*.jar /minecraft
+RUN ls -al /minecraft-workspace/ /minecraft
 RUN rm -rf /minecraft-workspace
 EXPOSE 25565
 WORKDIR /data
-ADD start-minecraft.sh /root/start-minecraft.sh
+COPY start-minecraft.sh /root/start-minecraft.sh
 ENTRYPOINT ["/bin/bash", "/root/start-minecraft.sh"]
