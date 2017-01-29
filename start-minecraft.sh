@@ -2,7 +2,7 @@
 #Solution borrowed from https://github.com/itzg/dockerfiles/blob/master/minecraft-server/start-minecraft.sh
 set -e -x
 if [ "$MC_VERSION" != "" ]; then
-  MC_VERSION=1.11
+  MC_VERSION=1.10
 fi
 
 if [ ! -f /data/eula.txt ]; then

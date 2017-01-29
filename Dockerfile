@@ -25,11 +25,11 @@ RUN wget -O /minecraft-workspace/BuildTools.jar https://hub.spigotmc.org/jenkins
 ##  Note to myself: find a way to use ENV or build-arg to pass the MC_VERSION
 ##                  to the java BuildTools command (--rev MC_VERSION)
 #ARG MC_VERSION
-ENV MC_VERSION ${MC_VERSION:-1.11}
+ENV MC_VERSION ${MC_VERSION:-1.10}
 #RUN echo $MC_VERSION
 
 # Capture only stderr to reduce log verbosity.
-RUN cd /minecraft-workspace/ && java -jar BuildTools.jar --rev 1.11 2>&1 >/dev/null
+RUN cd /minecraft-workspace/ && java -jar BuildTools.jar --rev 1.10 2>&1 >/dev/null
 RUN mv /minecraft-workspace/craftbukkit-*.jar /minecraft
 RUN ls -al /minecraft-workspace/ /minecraft
 RUN rm -rf /minecraft-workspace
